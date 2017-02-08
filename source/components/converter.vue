@@ -1,13 +1,13 @@
 <template>
     <div>
-        <input type="tel" v-model="value">
-        <select v-model="fromCurrency">
+        <input type="tel" v-model="value" @keyup="onChange">
+        <select v-model="fromCurrency" @change="onChange">
            <option v-for="currency in currencies" v-bind:value="currency.code">{{ currency.code }}</option> 
         </select>     
 
-        <button class="icon ion-ios-swap"></button>
+        <button class="icon ion-ios-swap" @click="onSwap"></button>
         
-        <select v-model="toCurrency">
+        <select v-model="toCurrency" @change="onChange">
            <option v-for="currency in currencies" v-bind:value="currency.code">{{ currency.code }}</option> 
         </select>
     </div>
@@ -55,8 +55,19 @@
                     { code: "ZAR", name: "South African Rand", symbol: "R" }
                 ]
             }
+        },
+        methods : {
+            onSwap: function() {
+                var tmp = this.fromCurrency;
+                this.fromCurrency = this.toCurrency;
+                this.toCurrency = tmp;
+                this.$emit('converter-data-changed', { value : this.value, from: this.fromCurrency, to: this.toCurrency})
+            },
+            onChange: function() {
+                this.$emit('converter-data-changed', { value : this.value, from: this.fromCurrency, to: this.toCurrency})
+            }
         }
-	}
+    }
 </script>
 
 <style>
@@ -76,6 +87,7 @@ input, select {
     border: solid 1px;
     width: 100px;
     padding: 0 6px;
+    text-align: center;
 }
 
 #app {

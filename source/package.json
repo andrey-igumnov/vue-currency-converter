@@ -20,6 +20,7 @@
     "vue": "*",
     "vue-loader": "*",
     "vue-template-compiler": "^2.1.10",
+    "vuex": "^2.1.2",
     "webpack": "*"
   },
   "keywords": [],

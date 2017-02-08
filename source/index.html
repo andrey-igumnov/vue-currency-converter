@@ -6,7 +6,8 @@
 </head>
 <body>
 	<div id="app">
-		<converter></converter>
+		<converter @converter-data-changed="handleDataChange"></converter>
+        <exchanger :converter-data="msg | lowercase"></exchanger>
 	</div>
 	
 	<script type="text/javascript" src="build.js"></script>
